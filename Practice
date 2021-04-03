@@ -1,0 +1,76 @@
+#lang racket
+;comment
+
+(+ 2 3)
+(* 3 98)
+(quote(1 2 3 4))
+'(1 2 3 4)
+(define lst '(1 2 3 4))
+
+(car lst)
+(cdr lst)
+(car (cdr lst))
+(car (cdr (cdr lst)))
+(cadr lst)
+(caddr lst)
+(cadddr lst)
+(cons 23 lst)
+lst
+
+(if (< (car lst) 10) 5 7)
+
+(cond ((< 5 3) 1)
+      ((< 4 3) 2)
+      (else 3))
+
+(define incr (lambda (x) (+ x 1)))
+(incr 7)
+
+(define factorial (lambda (n)
+                    (if (< n 2)
+                        1
+                        (* n (factorial (- n 1))))))
+
+
+(factorial 5)
+;(factorial 50)
+;(factorial 500)
+;(factorial 5000)
+;(factorial 50000)
+
+(length lst)
+
+(define list-length (lambda (lst)
+                      (if(null? lst)
+                         0
+                         (+ 1 (list-length (cdr lst))))))
+
+(list-length lst)
+
+(define list-sum (lambda (lst)
+                (if(null? lst)
+                         0
+                         (+ (car lst) (list-sum (cdr lst))))))
+
+(list-sum lst)
+
+(define list-prod (lambda (lst)
+                (if(null? lst)
+                         1
+                         (* (car lst) (list-prod (cdr lst))))))
+
+(list-prod lst)
+
+(define list-reduce (lambda (lst base f)
+                (if(null? lst)
+                         base
+                         (f (car lst)
+                            (list-reduce (cdr lst) base f)))))
+(list-reduce lst 0 +)
+(list-reduce lst 1 *)
+(list-reduce lst 0 (lambda (elem result) (+ 1 result)))
+(list-reduce lst '() (lambda (elem result)
+                       (cons elem result)))
+(list-reduce lst '() (lambda (elem result)
+                       (cons (* elem 2) result)))
+
